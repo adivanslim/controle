@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+
+<title>Plano</title>
+
+</head>
+<section layout:fragment="conteudo">
+
+	<div class="panel panel-primary">
+		<div class="panel-heading text-center">
+			<strong th:text="${plano.nomePlano}"></strong>
+		</div>
+
+		<table class="table text-center">
+			<tbody>
+				<tr>
+					<td>Nome do Plano</td>
+					<td th:text="${plano.nomePlano}"></td>
+				</tr>
+				<tr>
+					<td>Valor</td>
+					<td th:text="${{plano.valor}}"></td>
+				</tr>
+				<tr>
+					<td>Velocidade de Download</td>
+					<td th:text="${{plano.velocidadeDownKb}} + ' Kb/s'"></td>
+				</tr>
+				<tr>
+					<td>Velocidade de Upload</td>
+					<td th:text="${{plano.velocidadeUpKb}} + ' Kb/s'"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="panel-footer">
+			<button type="button" id="voltar"
+				class="btn btn-default glyphicon glyphicon-chevron-left" title="Lista de Planos"></button>
+
+			<a th:href="@{/plano/editar/} + ${plano.id}"
+				class="btn btn-info col-sm-offset-9">Editar</a>
+			<button type="button" class="btn btn-danger" data-toggle="modal"
+				data-target="#ApagarModal">Apagar</button>
+
+			<div class="modal fade" id="ApagarModal" tabindex="-1" role="dialog"
+				aria-labelledby="ModalApagar">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="modalApagarTitle"
+								th:text="|Apagar o plano ${plano.nomePlano}"></h4>
+						</div>
+						<div class="modal-body">
+							<p
+								th:text="|Tem certeza que desaja apagar o plano ${plano.nomePlano} |+'?'"></p>
+							<p>A operação não poderá ser desfeita!</p>
+						</div>
+						<div class="modal-footer">
+							<form th:action="@{/plano/{id}(id=${plano.id})}"
+								th:method="DELETE">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Cancelar</button>
+								<input type="submit" class="btn btn-danger" value="Apagar" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script th:src="@{/js/plano/plano-botoes.js}"></script>
+</section>
+
+</html>

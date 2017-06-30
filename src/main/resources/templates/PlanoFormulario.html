@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+
+<title>Cadastro de Planos</title>
+
+</head>
+<section layout:fragment="conteudo">
+	<div class="panel panel-primary">
+		<div class="panel-heading text-center">
+			<strong>Novo Plano</strong>
+		</div>
+		<div class="panel-body">
+
+			<form class="form-horizontal" th:action="@{/plano}"
+				th:object="${plano}" th:method="POST">
+
+				<div th:replace="fragments/mensagem-erro :: mensagem-erro"></div>
+				
+				<input type="hidden" th:field="*{id}" />
+				
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('nomePlano')} ? has-error">
+					<label for="nomePlano" class="col-sm-2 control-label">Nome
+						do Plano</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="nomePlano"
+							th:field="*{nomePlano}" placeholder="Nome do plano"
+							required="required" />
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('valor')} ? has-error">
+					<label for="valor" class="col-sm-2 control-label">Valor</label>
+					<div class="col-sm-4">
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input type="number" class="form-control" min="0" step="0.01"
+								id="valor" placeholder="R$ 0,00" th:field="*{valor}"
+								required="required" />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('velocidadeDownKb')} ? has-error">
+					<label for="velocidadeDownKb" class="col-sm-2 control-label">Velocidade
+						de Download</label>
+					<div class="col-sm-4">
+						<div class="input-group">
+							<input type="number" class="form-control" min="1"
+								id="velocidadeDownKb" th:field="*{velocidadeDownKb}"
+								placeholder="Velocidade em Kb/s" required="required" />
+							<div class="input-group-addon">Kb/s</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('velocidadeUpKb')} ? has-error">
+					<label for="velocidadeUpKb" class="col-sm-2 control-label">Velocidade
+						de Upload</label>
+					<div class="col-sm-4">
+						<div class="input-group">
+							<input type="number" class="form-control" min="1"
+								id="velocidadeUpKb" th:field="*{velocidadeUpKb}"
+								placeholder="Velocidade em Kb/s" required="required" />
+							<div class="input-group-addon">Kb/s</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</section>
+</html>
