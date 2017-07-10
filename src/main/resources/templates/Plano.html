@@ -11,10 +11,30 @@
 </head>
 <section layout:fragment="conteudo">
 
-	<div class="panel panel-primary">
-		<div class="panel-heading text-center">
-			<strong th:text="${plano.nomePlano}"></strong>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col col-sm-3 text-left">
+					<a class="btn btn-default " th:href="@{/plano}">&laquo; Todos</a>
+				</div>
+				<div class="col col-sm-3 text-right" style="margin-top: 5px">
+					<strong class="panel-title" th:text="${plano.nomePlano}"></strong>
+				</div>
+				<div class="col col-sm-6 text-right">
+
+					<a th:href="@{/plano/editar/{id} (id=${plano.id})}" title="Editar"
+						class="btn btn-sm btn-info glyphicon glyphicon-pencil"></a>
+
+					<button type="button" class="btn btn-sm btn-danger glyphicon glyphicon-trash" data-toggle="modal"
+				data-target="#ApagarModal"></button>
+					
+					
+					
+				</div>
+			</div>
 		</div>
+
+
 
 		<table class="table text-center">
 			<tbody>
@@ -36,15 +56,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="panel-footer">
-			<button type="button" id="voltar"
-				class="btn btn-default glyphicon glyphicon-chevron-left" title="Lista de Planos"></button>
-
-			<a th:href="@{/plano/editar/} + ${plano.id}"
-				class="btn btn-info col-sm-offset-9">Editar</a>
-			<button type="button" class="btn btn-danger" data-toggle="modal"
-				data-target="#ApagarModal">Apagar</button>
-
+			
+			<!-- Modal -->
 			<div class="modal fade" id="ApagarModal" tabindex="-1" role="dialog"
 				aria-labelledby="ModalApagar">
 				<div class="modal-dialog" role="document">
@@ -59,7 +72,7 @@
 						</div>
 						<div class="modal-body">
 							<p
-								th:text="|Tem certeza que desaja apagar o plano ${plano.nomePlano} |+'?'"></p>
+								th:text="|Tem certeza que desaja apagar o plano ${plano.nomePlano}|+'?'"></p>
 							<p>A operação não poderá ser desfeita!</p>
 						</div>
 						<div class="modal-footer">
@@ -75,8 +88,7 @@
 			</div>
 
 		</div>
-	</div>
-	<script th:src="@{/js/plano/plano-botoes.js}"></script>
+
 </section>
 
 </html>

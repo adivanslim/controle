@@ -6,28 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.arjnet.controle.modelo.Plano;
-import br.com.arjnet.controle.repositorio.Planos;
+import br.com.arjnet.controle.repositorio.PlanoRepository;
 
 @Service
-public class CadastroPlanos {
+public class PlanoService {
 
 	@Autowired
-	private Planos planos;
+	private PlanoRepository planoRepository;
 
 	public void salvar(Plano plano) {
-		planos.save(plano);
+		planoRepository.save(plano);
 	}
 
-	public List<Plano> findAll() {
-		return planos.findAll();
+	public List<Plano> buscaTodos() {
+		return planoRepository.findAll();
 	}
 
 	public Plano buscaUm(Long id) {
-		return planos.findOne(id);
+		return planoRepository.findOne(id);
 	}
 
 	public void apagar(Long id) {
-		planos.delete(id);
+		planoRepository.delete(id);
 	}
 	
 	

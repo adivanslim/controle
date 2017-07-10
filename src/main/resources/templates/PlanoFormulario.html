@@ -9,10 +9,15 @@
 <title>Cadastro de Planos</title>
 
 </head>
+
 <section layout:fragment="conteudo">
 	<div class="panel panel-primary">
-		<div class="panel-heading text-center">
-			<strong>Novo Plano</strong>
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col col-sm-12 text-center">
+					<strong class="panel-title">Formulário de Planos</strong>
+				</div>
+			</div>
 		</div>
 		<div class="panel-body">
 
@@ -20,9 +25,9 @@
 				th:object="${plano}" th:method="POST">
 
 				<div th:replace="fragments/mensagem-erro :: mensagem-erro"></div>
-				
+
 				<input type="hidden" th:field="*{id}" />
-				
+
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('nomePlano')} ? has-error">
 					<label for="nomePlano" class="col-sm-2 control-label">Nome
@@ -77,12 +82,17 @@
 
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">Salvar</button>
+						<button type="submit" class="btn btn-success">Salvar</button>
 					</div>
 				</div>
 
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".has-error>div>input").first().focus();
+		});
+	</script>
 </section>
 </html>

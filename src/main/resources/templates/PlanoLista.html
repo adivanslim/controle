@@ -12,19 +12,28 @@
 <section layout:fragment="conteudo">
 
 	<div th:if="${!#strings.isEmpty(mensagem)}"
-	 class="alert alert-success alert-dismissible" role="alert">
+		class="alert alert-success alert-dismissible" role="alert">
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<strong th:text="${#strings.toString(mensagem)}" ></strong>
+		<strong th:text="${#strings.toString(mensagem)}"></strong>
 	</div>
 
 
-	<div class="panel panel-primary">
-		<div class="panel-heading text-center">
-			<strong>Lista de Planos</strong>
+	<div class="panel panel-default">
+	
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col col-sm-6 text-right">
+					<strong class="panel-title" style="margin-top:5px" >Planos</strong>
+				</div>
+				<div class="col col-sm-6 text-right">
+					<a th:href="@{/plano/formulario}" class="btn btn-sm btn-primary btn-create">Novo</a>
+				</div>
+			</div>
 		</div>
+		
 		<div class="panel-body">
 
 			<div class="table-responsive">
@@ -58,6 +67,7 @@
 				</table>
 			</div>
 		</div>
+		
 	</div>
 	<script th:src="@{/js/dataTable.js}"></script>
 	<script th:src="@{/js/plano/tabela-eventos.js}"></script>

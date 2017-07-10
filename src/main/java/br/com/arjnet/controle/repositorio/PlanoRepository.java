@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.arjnet.controle.modelo.Plano;
 
-public interface Planos extends JpaRepository<Plano, Long>{
+public interface PlanoRepository extends JpaRepository<Plano, Long>{
 
 }

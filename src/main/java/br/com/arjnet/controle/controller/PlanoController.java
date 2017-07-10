@@ -15,14 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.arjnet.controle.modelo.Plano;
-import br.com.arjnet.controle.servico.CadastroPlanos;
+import br.com.arjnet.controle.servico.PlanoService;
 
 @Controller
 @RequestMapping("/plano")
 public class PlanoController {
 
 	@Autowired
-	private CadastroPlanos cadastroPlanos;
+	private PlanoService planoService;
 	
 	@GetMapping("/formulario")
 	public ModelAndView formulario(Plano plano) {
@@ -38,7 +38,8 @@ public class PlanoController {
 		if (errors.hasErrors())
 			return modelAndView;
 		
-		cadastroPlanos.salvar(plano);
+		modelAndView.clear();
+		planoService.salvar(plano);
 		redirectAtt.addFlashAttribute("mensagem", "Plano " + plano.getNomePlano() + " salvo com sucesso");
 		modelAndView.setViewName("redirect:plano");
 		return modelAndView;
@@ -46,7 +47,7 @@ public class PlanoController {
 
 	@GetMapping
 	public ModelAndView listar() {
-		List<Plano> planoList = cadastroPlanos.findAll();
+		List<Plano> planoList = planoService.buscaTodos();
 		ModelAndView modelAndView = new ModelAndView("PlanoLista");
 		modelAndView.addObject("planos", planoList);
 		return modelAndView;
@@ -54,7 +55,7 @@ public class PlanoController {
 
 	@GetMapping("{id}")
 	public ModelAndView buscar(@PathVariable("id") Long id) {
-		Plano plano = cadastroPlanos.buscaUm(id);
+		Plano plano = planoService.buscaUm(id);
 		ModelAndView modelAndView = new ModelAndView("Plano");
 		modelAndView.addObject(plano);
 		return modelAndView;
@@ -62,7 +63,7 @@ public class PlanoController {
 	
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id){
-		Plano plano = cadastroPlanos.buscaUm(id);
+		Plano plano = planoService.buscaUm(id);
 		ModelAndView modelAndView = new ModelAndView("PlanoFormulario");
 		modelAndView.addObject(plano);
 		return modelAndView;
@@ -70,7 +71,7 @@ public class PlanoController {
 	
 	@DeleteMapping("{id}")
 	public ModelAndView apaga(@PathVariable("id") Long id, RedirectAttributes redirectAtt){
-		cadastroPlanos.apagar(id);
+		planoService.apagar(id);
 		ModelAndView modelAndView = new ModelAndView("redirect:/plano");
 		redirectAtt.addFlashAttribute("mensagem", "Plano apagado com sucesso");
 		return modelAndView;

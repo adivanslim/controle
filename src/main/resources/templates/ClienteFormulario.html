@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+
+<title>Novo Cliente</title>
+
+</head>
+<section layout:fragment="conteudo">
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col col-sm-12 text-center">
+					<strong class="panel-title">Formulário de Cliente</strong>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<form id="validar" class="form-horizontal" th:action="@{/cliente}"
+				th:object="${Cliente}" th:method="POST">
+
+				<div th:replace="fragments/mensagem-erro :: mensagem-erro"></div>
+
+				<input type="hidden" th:field="*{id}" />
+				<fieldset>
+					<legend>Informações Pessoais</legend>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('tipo')} ? has-error">
+						<label for="tipo" class="col-sm-2 control-label">Tipo</label>
+						<div class="col-sm-3">
+							<select class="form-control" id="tipo" th:field="*{tipo}">
+								<option value="FISICA">Física</option>
+								<option value="JURIDICA">Jurídica</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('razaoSocial')} ? has-error">
+						<label for="razaoSocial" class="col-sm-2 control-label">Razão
+							Social</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" id="razaoSocial"
+								th:field="*{razaoSocial}" placeholder="Razão Social"
+								required="required" autofocus="autofocus" />
+						</div>
+					</div>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('fantasia')} ? has-error">
+						<label for="fantasia" class="col-sm-2 control-label">Nome
+							Fantasia</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" id="fantasia"
+								th:field="*{fantasia}" placeholder="Nome Fantasia" />
+						</div>
+					</div>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('cpf')} ? has-error">
+						<label for="cpf" class="col-sm-2 control-label">CPF</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="cpf"
+							data-mask="999.999.999-99"
+								th:field="*{cpf}" placeholder="000.000.000-00"
+								required="required" />
+						</div>
+					</div>
+
+					<div class="form-group cnpj"
+						th:classappend="${#fields.hasErrors('cnpj')} ? has-error">
+						<label for="cnpj" class="col-sm-2 control-label">CNPJ</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="cnpj"
+								th:field="*{cnpj}" placeholder="00.000.000/0000-00"
+								required="required" />
+						</div>
+					</div>
+
+					<div class="form-group inscEst"
+						th:classappend="${#fields.hasErrors('inscricaoEstadual')} ? has-error">
+						<label for="inscricaoEstadual" class="col-sm-2 control-label">Inscrição
+							Estadual</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="inscricaoEstadual"
+								th:field="*{inscricaoEstadual}" placeholder="0000000-0"
+								required="required" />
+						</div>
+					</div>
+
+					<div class="form-group inscMun"
+						th:classappend="${#fields.hasErrors('inscricaoMunicipal')} ? has-error">
+						<label for="inscricaoMunicipal" class="col-sm-2 control-label">Inscrição
+							Municipal</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="inscricaoMunicipal"
+								th:field="*{inscricaoMunicipal}"
+								placeholder="Inscrição Municipal" required="required" />
+						</div>
+					</div>
+
+					<div class="form-group rg"
+						th:classappend="${#fields.hasErrors('rg')} ? has-error">
+						<label for="rg" class="col-sm-2 control-label">RG</label>
+						<div class="col-sm-5">
+							<input type="text" placeholder="0000000000-0"
+								class="form-control" id="rg" th:field="*{rg}"
+								required="required" />
+						</div>
+					</div>
+
+					<div class="form-group sexo"
+						th:classappend="${#fields.hasErrors('sexo')} ? has-error">
+						<label for="sexo" class="col-sm-2 control-label">Sexo</label>
+						<div class="col-sm-3">
+							<select class="form-control" id="sexo" th:field="*{sexo}">
+								<option value="MASCULINO">Masculino</option>
+								<option value="FEMININO">Feminino</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('dataNascimento')} ? has-error">
+						<label for="dataNascimento"
+							class="col-sm-2 control-label dataNasc">Data de
+							Nascimento</label>
+						<div class="col-sm-3">
+							<input type="date" class="form-control" id="dataNascimento"
+								th:field="*{dataNascimento}" />
+						</div>
+					</div>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('responsavel')} ? has-error">
+						<label for="responsavel" class="col-sm-2 control-label">Responsável</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" id="responsavel"
+								th:field="*{responsavel}" placeholder="Nome do Responsável"
+								required="required" />
+						</div>
+					</div>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('ativo')} ? has-error">
+						<label for="ativo" class="col-sm-2 control-label">Status</label>
+						<div class="col-sm-3">
+							<select class="form-control" id="ativo" th:field="*{ativo}">
+								<option value="true">Ativo</option>
+								<option value="false">Desativo</option>
+							</select>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend>Informações de Contato</legend>
+
+					<div class="telefones">
+						<div class="form-group"
+							th:each="telefone, stat : *{contato.telefone}"
+							th:classappend="${stat.index == 0} ? appendFone">
+
+							<label th:for="${'telefone' + stat.index}"
+								class="col-sm-2 control-label">Telefone/Celular</label>
+							<div class="col-sm-4">
+								<input th:field="*{contato.telefone[__${stat.index}__]}"
+									type="tel" class="form-control"
+									th:id="${'telefone' + stat.index}"
+									placeholder="(99) 99999-9999" required="required" />
+							</div>
+
+							<div th:if="${stat.index}!=0" tabindex="-1"
+								class="btn btn-danger glyphicon glyphicon-trash excluirTelefone"></div>
+
+							<div th:if="${stat.index}==0" tabindex="-1" id="novoTelefone"
+								class="btn btn-info glyphicon glyphicon-plus"></div>
+						</div>
+					</div>
+
+					<div class="emails">
+						<div class="form-group" th:each="email, stat : *{contato.email}"
+							th:classappend="${stat.index == 0} ? appendEmail">
+
+							<label th:for="${'email' + stat.index}"
+								class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-5">
+								<input th:field="*{contato.email[__${stat.index}__]}"
+									type="email" class="form-control"
+									th:id="${'email' + stat.index}" placeholder="user@email.com"
+									required="required" />
+							</div>
+
+							<div th:if="${stat.index}!=0" tabindex="-1"
+								class="btn btn-danger glyphicon glyphicon-trash excluirEmail"></div>
+
+							<div th:if="${stat.index}==0" tabindex="-1" id="novoEmail"
+								class="btn btn-info glyphicon glyphicon-plus"></div>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend>Informações de Endereço</legend>
+					<div class="col-sm-11 enderecos"
+						th:each="endereco, stat : *{enderecos}">
+
+						<div class="panel panel-default col-sm-offset-1">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col col-sm-10 text-left">
+										<div
+											th:text="${stat.index} != 0 ? 'Endereço Secundário' : 'Endereço Principal' "
+											class="panel-title"></div>
+									</div>
+
+									<div class="col col-sm-2 text-right">
+										<div th:if="${stat.index} == 0"
+											class="btn btn-info glyphicon glyphicon-plus"></div>
+										<div th:if="${stat.index} != 0"
+											class="btn btn-danger glyphicon glyphicon-trash"></div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="panel-body">
+
+								<div class="form-group">
+									<label th:for="${'cep' + stat.index}"
+										class="col-sm-2 control-label">CEP</label>
+									<div class="col-sm-3">
+										<input th:field="*{enderecos[__${stat.index}__].cep}"
+											type="text" class="form-control cep"
+											th:id="${'cep' + stat.index}" placeholder="99999-999"
+											required="required" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label th:for="${'logradouro' + stat.index}"
+										class="col-sm-2 control-label">Logradouro</label>
+									<div class="col-sm-5">
+										<input th:field="*{enderecos[__${stat.index}__].logradouro}"
+											type="text" class="form-control"
+											th:id="${'logradouro' + stat.index}" placeholder="Av. Brasil"
+											required="required" />
+									</div>
+
+									<label th:for="${'numero' + stat.index}"
+										class="col-sm-2 control-label">Número</label>
+									<div class="col-sm-2">
+										<input th:field="*{enderecos[__${stat.index}__].numero}"
+											type="text" class="form-control"
+											th:id="${'numero' + stat.index}" placeholder="000-A"
+											required="required" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label th:for="${'complemento' + stat.index}"
+										class="col-sm-2 control-label">Complemento</label>
+									<div class="col-sm-5">
+										<input th:field="*{enderecos[__${stat.index}__].complemento}"
+											type="text" class="form-control"
+											th:id="${'complemento' + stat.index}" placeholder="Casa"
+											required="required" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label th:for="${'bairro' + stat.index}"
+										class="col-sm-2 control-label">Bairro</label>
+									<div class="col-sm-5">
+										<input th:field="*{enderecos[__${stat.index}__].bairro}"
+											type="text" class="form-control"
+											th:id="${'bairro' + stat.index}" placeholder="Centro"
+											required="required" />
+									</div>
+
+									<label th:for="${'referencia' + stat.index}"
+										class="col-sm-2 control-label">Referência</label>
+									<div class="col-sm-3">
+										<input th:field="*{enderecos[__${stat.index}__].referencia}"
+											type="text" class="form-control"
+											th:id="${'referencia' + stat.index}"
+											placeholder="Próximo ao hospital" required="required" />
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									<label th:for="${'cidade'+stat.index}"
+										class="col-sm-2 control-label">Cidade</label>
+									<div class="col-sm-5">
+										<input th:field="*{enderecos[__${stat.index}__].cidade}"
+											type="text" class="form-control"
+											th:id="${'cidade' + stat.index}" placeholder="Imperatriz"
+											required="required" />
+									</div>
+
+									<label th:for="${'uf'+stat.index}"
+										class="col-sm-2 control-label">UF</label>
+									<div class="col-sm-2">
+										<select th:field="*{enderecos[__${stat.index}__].uf}"
+											class="form-control" th:id="${'uf'+stat.index}">
+											<option value="AL">AL</option>
+											<option value="AM">AM</option>
+											<option value="AP">AP</option>
+											<option value="BA">BA</option>
+											<option value="CE">CE</option>
+											<option value="DF">DF</option>
+											<option value="ES">ES</option>
+											<option value="GO">GO</option>
+											<option value="MA">MA</option>
+											<option value="MG">MG</option>
+											<option value="MS">MS</option>
+											<option value="MT">MT</option>
+											<option value="PA">PA</option>
+											<option value="PB">PB</option>
+											<option value="PE">PE</option>
+											<option value="PI">PI</option>
+											<option value="PR">PR</option>
+											<option value="RJ">RJ</option>
+											<option value="RN">RN</option>
+											<option value="RO">RO</option>
+											<option value="RR">RR</option>
+											<option value="RS">RS</option>
+											<option value="SC">SC</option>
+											<option value="SP">SP</option>
+											<option value="SE">SE</option>
+											<option value="TO">TO</option>
+										</select>
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									<label th:for="${'descricao' + stat.index}"
+										class="col-sm-2 control-label">Descrição</label>
+									<div class="col-sm-5">
+										<textarea th:field="*{enderecos[__${stat.index}__].descricao}"
+											class="form-control" th:id="${'descricao'+stat.index}"
+											placeholder="Endereço Residencial"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Informações de Login</legend>
+					<div class="col-sm-11 logins">
+
+						<div class="panel panel-default col-sm-offset-1">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col col-sm-10 text-left">
+										<div class="panel-title">Login</div>
+									</div>
+									<div class="col col-sm-2 text-right">
+										<div class="btn btn-info glyphicon glyphicon-plus"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="panel-body">
+
+								<div class="form-group">
+									<label for="usuario" class="col-sm-2 control-label">Nome
+										de usuário</label>
+									<div class="col-sm-4">
+										<div class="input-group">
+											<input type="text" class="form-control" id="usuario"
+												placeholder="jose@casa" required="required" />
+											<div class="input-group-addon">
+												<div class="glyphicon glyphicon-user"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="senha" class="col-sm-2 control-label">Senha</label>
+									<div class="col-sm-4">
+										<div class="input-group">
+											<input type="password" class="form-control" id="senha"
+												placeholder="Senha forte" required="required" />
+											<div class="input-group-addon">
+												<div class="glyphicon glyphicon-eye-open senha"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="numeroConexoes" class="col-sm-2 control-label">Número
+										de Conexões</label>
+									<div class="col-sm-3">
+										<input type="number" class="form-control" id="numeroConexoes"
+											placeholder="Número de Conexões" required="required" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="ipReservado" class="col-sm-2 control-label">IP
+										Reservado</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control ip" id="ipReservado"
+											placeholder="255.255.255.255" required="required" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="macReservado" class="col-sm-2 control-label">MAC
+										Reservado</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control mac" id="macReservado"
+											placeholder="FF.FF.FF.FF.FF.FF.FF.FF" required="required" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="ativo" class="col-sm-2 control-label">Status
+										do Login</label>
+									<div class="col-sm-3">
+										<select class="form-control" id="ativo">
+											<option value="true">Ativo</option>
+											<option value="false">Desativo</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-group">
+					<div class="col-sm-offset-1 col-sm-10">
+						<button type="submit" class="btn btn-success">Salvar</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+	<script th:src="@{/js/mask.js}"></script>
+	<script th:src="@{/js/cliente/formulario.js}"></script>
+</section>
+
+</html>
