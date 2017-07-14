@@ -14,63 +14,106 @@
 
 <title layout:title-pattern="$CONTENT_TITLE" ></title>
 
+<style>
+    aside {
+      height: 100%;
+    }
+  </style>
 </head>
-
-<body class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <aside class="col-md-4">
-        <ul class="nav nav-tabs nav-stacked nav-pills">
+<body data-spy="scroll" data-target=".sidebar">
+ <nav class="navbar navbar-default">
+   <div class="container-fluid">
+     <div class="navbar-header">
+       <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barra">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a href="" class="navbar-brand">ARJNET</a>
+     </div>
+      <div class="collapse navbar-collapse" id="barra">
+        <ul class="nav nav-tabs nav-pills">
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
               Clientes <span class="caret"></span> 
             </a>
             <ul class="dropdown-menu" >
-              <li><a href="#">Cadastrar novo</a></li>
-              <li><a href="#">Listar todos</a></li>
-              <li><a href="#">Buscar</a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                Cadastrar novo</a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                Listar todos</a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                Buscar
+              </a></li>
             </ul>
           </li>
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
               Financeiro <span class="caret"></span> 
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Títulos Vencidos</a></li>
-              <li><a href="#">Relatórios</a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                Títulos Vencidos
+              </a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                Relatórios
+              </a></li>
             </ul>
           </li>
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
               Sessões<span class="caret"></span> 
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Conexões ativas</a></li>
-              <li><a href="#">Mapa de usuários</a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+                Conexões ativas
+              </a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                Mapa de usuários
+              </a></li>
             </ul>
           </li>
           <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               Sistema<span class="caret"></span> 
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Planos</a></li>
-              <li><a href="#">Backup</a></li>
-              <li><a href="#">Administradores</a></li>
-              <li><a href="#">Funcionários</a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                Planos
+              </a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+                Backup
+              </a></li>
+              <li><a href="#">                
+                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                Administradores
+              </a></li>
+              <li><a href="#">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                Funcionários
+              </a></li>
             </ul>
           </li>
           <li><a href="#"></a></li>
           <li><a href="#"></a></li>
           <li><a href="#"></a></li>
         </ul>
-      </aside>
-      <main class="col-md-8">
-       
-        
-      </main>
-    </div>
+   </div>
   </div>
+ </nav>
 	<div th:replace="fragments/header :: header"></div>
 
 	<div class="container">
