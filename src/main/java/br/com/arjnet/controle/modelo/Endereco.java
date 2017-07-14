@@ -24,18 +24,18 @@ public class Endereco implements Serializable {
 	private String bairro;
 	private String complemento;
 	private String cep;
-	
+
 	@Enumerated(EnumType.STRING)
 	private UF uf;
-	
+
 	private String referencia;
 	private String cidade;
 	private String descricao;
-	
-	public Endereco(){
+
+	public Endereco() {
 		this.uf = UF.MA;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -141,4 +141,8 @@ public class Endereco implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return logradouro + ", nº " + numero + ", " + bairro + " - " + cidade;
+	}
 }

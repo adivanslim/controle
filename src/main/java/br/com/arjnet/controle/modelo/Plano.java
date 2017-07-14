@@ -43,7 +43,6 @@ public class Plano implements Serializable {
 	@NumberFormat(pattern="#,##0")
 	private Long velocidadeUpKb;
 	
-	
 
 	public Long getId() {
 		return id;

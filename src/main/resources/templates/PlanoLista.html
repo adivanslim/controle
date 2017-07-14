@@ -22,25 +22,25 @@
 
 
 	<div class="panel panel-default">
-	
+
 		<div class="panel-heading">
 			<div class="row">
 				<div class="col col-sm-6 text-right">
-					<strong class="panel-title" style="margin-top:5px" >Planos</strong>
+					<strong class="panel-title" style="margin-top: 5px">Planos</strong>
 				</div>
 				<div class="col col-sm-6 text-right">
-					<a th:href="@{/plano/formulario}" class="btn btn-sm btn-primary btn-create">Novo</a>
+					<a th:href="@{/plano/formulario}"
+						class="btn btn-sm btn-primary btn-create">Novo</a>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="panel-body">
 
 			<div class="table-responsive">
-				<table class="table table-hover table-bordered data">
+				<table class="table table-hover table-bordered tablesorter">
 					<thead>
 						<tr>
-							<th class="text-center col-sm-1">#</th>
 							<th class="text-center col-sm-4">Nome do Plano</th>
 							<th class="text-center col-sm-2">Valor da Mensalidade</th>
 							<th class="text-center col-sm-2">Velocidade do Download</th>
@@ -48,9 +48,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="plano: ${planos}">
-							<td class="text-center" th:text="${plano.id}"></td>
-							<td th:text="${plano.nomePlano}"></td>
+						<tr th:each="plano: ${planos}"
+							th:onclick="'redireciona(\'' + ${plano.id} + '\')'">
+							<td class="text-center" th:text="${plano.nomePlano}"></td>
 							<td class="text-right" th:text="${{plano.valor}} |"></td>
 							<td class="text-right"
 								th:text="${{plano.velocidadeDownKb}} +' Kb/s'"></td>
@@ -59,7 +59,7 @@
 						</tr>
 
 						<tr>
-							<td class="text-center" colspan="5"
+							<td class="text-center" colspan="4"
 								th:if="${#lists.isEmpty(planos)}">Nenhum Plano Cadastrado</td>
 						</tr>
 
@@ -67,9 +67,14 @@
 				</table>
 			</div>
 		</div>
-		
+
 	</div>
-	<script th:src="@{/js/dataTable.js}"></script>
-	<script th:src="@{/js/plano/tabela-eventos.js}"></script>
+	<script th:src="@{/js/tabela-eventos.js}"></script>
+	<script th:src="@{/js/tablesorter.js}"></script>
+	<script type="text/javascript">
+		function redireciona(id) {
+			window.location.replace("/plano/" + id);
+		}
+	</script>
 </section>
 </html>

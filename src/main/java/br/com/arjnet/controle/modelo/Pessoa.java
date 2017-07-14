@@ -3,6 +3,7 @@ package br.com.arjnet.controle.modelo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,40 +26,48 @@ import br.com.arjnet.controle.modelo.enums.Sexo;
 import br.com.arjnet.controle.modelo.enums.TipoPessoa;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Enumerated(EnumType.STRING)
-	@NotNull(message="O tipo de pessoa (fisica/juridica) deve ser informado")
+	@NotNull(message = "O tipo de pessoa (fisica/juridica) deve ser informado")
 	private TipoPessoa tipo;
-	
-	@NotBlank(message="A razão social da pessoa deve ser informada")
+
+	@NotBlank(message = "A razão social da pessoa deve ser informada")
 	private String razaoSocial;
-	
-	@CPF(message="CPF inválido")
+
+	@CPF(message = "CPF inválido")
+	@Column(unique = true)
 	private String cpf;
-	
-	@CNPJ(message="CNPJ inválido")
+
+	@CNPJ(message = "CNPJ inválido")
+	@Column(unique = true)
 	private String cnpj;
-	
+
+	@Column(unique = true)
 	private String inscricaoEstadual;
-	private String inscricaoMunicipal;
-	private String rg;
-	private String fantasia;
 	
+	@Column(unique = true)
+	private String inscricaoMunicipal;
+	
+	@Column(unique = true)
+	private String rg;
+	
+	private String fantasia;
+
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
-	
+
 	@Temporal(TemporalType.DATE)
-	@NotNull(message="Informe a data de nascimento/fundação")
-	@Past(message="A data de nascimento deve ser anterior a data atual")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@NotNull(message = "Informe a data de nascimento/fundação")
+	@Past(message = "A data de nascimento deve ser anterior a data atual")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 
 	public Long getId() {

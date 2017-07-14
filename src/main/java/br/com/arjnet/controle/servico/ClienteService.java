@@ -18,13 +18,23 @@ public class ClienteService {
 	public void salvar(Cliente cliente) {
 		cliente.valida();
 
-		if (cliente.getId() == null)
+		if (cliente.getId() == null) {
 			cliente.setDataCricacao(new Date(System.currentTimeMillis()));
+		}
+
 		clienteRepository.save(cliente);
 	}
 
 	public List<Cliente> buscaTodos() {
 		return clienteRepository.findAll();
+	}
+
+	public Cliente buscar(Long id) {
+		return clienteRepository.findOne(id);
+	}
+
+	public void apaga(Long id) {
+		clienteRepository.delete(id);
 	}
 
 }

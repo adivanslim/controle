@@ -10,6 +10,79 @@
 
 </head>
 <section layout:fragment="conteudo">
-<p>Funfa</p>
+	
+	<div th:if="${!#strings.isEmpty(mensagem)}"
+		class="alert alert-success alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong th:text="${#strings.toString(mensagem)}"></strong>
+	</div>
+
+	<div class="panel panel-default">
+
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col col-sm-6 text-right">
+					<strong class="panel-title" style="margin-top: 5px">Clientes</strong>
+				</div>
+				<div class="col col-sm-6 text-right">
+					<a th:href="@{/cliente/formulario}"
+						class="btn btn-sm btn-primary btn-create">Novo</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<div class="table-responsive">
+
+				<table class="table table-hover table-bordered tablesorter">
+					<thead>
+						<tr>
+							<th class="text-center">Status</th>
+							<th class="text-center">Razão Social</th>
+							<th class="text-center">Endereço</th>
+							<th class="text-center">Telefones</th>
+							<th class="text-center">CPF/CNPJ</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="cliente:${clientes}"
+							th:onclick="'redireciona(\'' + ${cliente.id} + '\')'">
+
+							<td class="text-center" style="vertical-align: middle"
+								th:classappend="${cliente.ativo} ? success : danger">
+								<div th:text="${cliente.ativo} ? Ativo : Desativado"></div></td>
+							
+							<td class="text-center" style="vertical-align: middle" th:text="${cliente.razaoSocial}"></td>
+							<td class="text-center" style="vertical-align: middle" th:text="${cliente.enderecos[0]}"></td>
+							<td class="text-center" style="vertical-align: middle" >
+								<p th:each="telefone,stat : *{cliente.contato.telefone}"
+									th:text="${telefone}"></p>
+							</td>
+							<td class="text-center" th:if="${cliente.cpf == null}" style="vertical-align: middle" th:text="${cliente.cnpj}">CNPJ</td>
+							<td class="text-center" th:if="${cliente.cnpj == null}" style="vertical-align: middle" th:text="${cliente.cpf}">CPF</td>
+						</tr>
+
+						<tr>
+							<td class="text-center" colspan="5" style="vertical-align: middle"
+								th:if="${#lists.isEmpty(clientes)}">Nenhum cliente cadastrado</td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/js/tabela-eventos.js}"></script>
+	<script th:src="@{/js/tablesorter.js}"></script>
+	<script type="text/javascript">
+		function redireciona(id) {
+			window.location.replace("/cliente/" + id);
+		}
+	</script>
 </section>
 </html>

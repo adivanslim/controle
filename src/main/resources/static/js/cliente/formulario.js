@@ -1,13 +1,178 @@
 $(document).ready(function() {
 	alternaFisicaJuridica();
 
-	$("div.senha").click(function(){
+	$("div.toggleSenha").click(function(){
 		toggleSenha(this);
 	});
 	
 	$("#tipo").change(function() {
 		alternaFisicaJuridica();
 	});
+	
+	$("div.apagaEndereco").click(function(){
+		apagarEndereco($(this));
+	});
+	
+	$("div#novoEndereco").click(function(){
+		var divPanel = $("div.enderecos").find("div.enderecoAppend").clone();
+		
+		divPanel.removeClass("enderecoAppend")
+					.find("div.panel-title").text("Endereço Alternativo");
+		
+		divPanel.find("div#novoEndereco")
+					.removeAttr("id")
+					.removeClass("btn-info  glyphicon-plus")
+					.addClass("btn-danger  glyphicon-trash apagaEndereco");
+		
+		divPanel.find("input").val("");
+		divPanel.find("textarea").val("");
+		
+		var ultimoIndice = ultimoIndiceDisponivelEndereco($("div.enderecos"));
+		
+		divPanel.find("[for='cep0']").attr("for","cep"+ultimoIndice);
+		divPanel.find("[for='logradouro0']").attr("for","logradouro"+ultimoIndice);
+		divPanel.find("[for='numero0']").attr("for","numero"+ultimoIndice);
+		divPanel.find("[for='complemento0']").attr("for","complemento"+ultimoIndice);
+		divPanel.find("[for='bairro0']").attr("for","bairro"+ultimoIndice);
+		divPanel.find("[for='referencia0']").attr("for","referencia"+ultimoIndice);		
+		divPanel.find("[for='cidade0']").attr("for","cidade"+ultimoIndice);
+		divPanel.find("[for='uf0']").attr("for","uf"+ultimoIndice);
+		divPanel.find("[for='descricao0']").attr("for","descricao"+ultimoIndice);
+		
+		divPanel.find("#cep0").attr({
+			"name":"enderecos["+ultimoIndice+"].cep",
+			"id":"cep"+ultimoIndice
+		});
+		
+		divPanel.find("#logradouro0").attr({
+			"name":"enderecos["+ultimoIndice+"].logradouro",
+			"id":"logradouro"+ultimoIndice
+		});
+		
+		divPanel.find("#numero0").attr({
+			"name":"enderecos["+ultimoIndice+"].numero",
+			"id":"numero"+ultimoIndice
+		});
+		
+		divPanel.find("#complemento0").attr({
+			"name":"enderecos["+ultimoIndice+"].complemento",
+			"id":"complemento"+ultimoIndice
+		});
+		
+		divPanel.find("#bairro0").attr({
+			"name":"enderecos["+ultimoIndice+"].bairro",
+			"id":"bairro"+ultimoIndice
+		});
+		
+		divPanel.find("#referencia0").attr({
+			"name":"enderecos["+ultimoIndice+"].referencia",
+			"id":"referencia"+ultimoIndice
+		});
+		
+		divPanel.find("#cidade0").attr({
+			"name":"enderecos["+ultimoIndice+"].cidade",
+			"id":"cidade"+ultimoIndice
+		});
+		
+		divPanel.find("#uf0").attr({
+			"name":"enderecos["+ultimoIndice+"].uf",
+			"id":"uf"+ultimoIndice
+		});
+		
+		divPanel.find("#descricao0").attr({
+			"name":"enderecos["+ultimoIndice+"].descricao",
+			"id":"descricao"+ultimoIndice
+		});
+		
+		$("div.enderecos").append(divPanel);
+		
+		$("#cep"+ultimoIndice).mask("99999-999");
+		
+		$("div.apagaEndereco").unbind();
+		$("div.apagaEndereco").click(function(){
+			apagarEndereco($(this));
+		});
+		
+	});
+	
+	$("div.apagaLogin").click(function(){
+		apagarLogin($(this));
+	});
+	
+	
+	$("div#novoLogin").click(function(){
+		var divPanel = $("div.logins").find("div.loginAppend").clone();
+		
+		divPanel.removeClass("loginAppend");
+		
+		divPanel.find("div#novoLogin")
+					.removeAttr("id")
+					.removeClass("btn-info  glyphicon-plus")
+					.addClass("btn-danger  glyphicon-trash apagaLogin");
+		
+		divPanel.find("input").val("");
+		
+		var ultimoIndice = ultimoIndiceDisponivelEmail($("div.logins"));
+		
+		divPanel.find("[for='usuario0']").attr("for","usuario"+ultimoIndice);
+		divPanel.find("[for='senha0']").attr("for","senha"+ultimoIndice);
+		divPanel.find("[for='numeroConexoes0']").attr("for","numeroConexoes"+ultimoIndice);
+		divPanel.find("[for='ipReservado0']").attr("for","ipReservado"+ultimoIndice);
+		divPanel.find("[for='macReservado0']").attr("for","macReservado"+ultimoIndice);
+		divPanel.find("[for='ativo0']").attr("for","ativo"+ultimoIndice);		
+		
+		divPanel.find("#usuario0").attr({
+			"name":"logins["+ultimoIndice+"].usuario",
+			"id":"usuario"+ultimoIndice
+		});
+		
+		divPanel.find("#senha0").attr({
+			"name":"logins["+ultimoIndice+"].senha",
+			"id":"senha"+ultimoIndice
+		});
+		
+		divPanel.find("#numeroConexoes0").attr({
+			"name":"logins["+ultimoIndice+"].numeroConexoes",
+			"id":"numeroConexoes"+ultimoIndice
+		});
+		
+		divPanel.find("#ipReservado0").attr({
+			"name":"logins["+ultimoIndice+"].ipReservado",
+			"id":"ipReservado"+ultimoIndice
+		});
+		
+		divPanel.find("#macReservado0").attr({
+			"name":"logins["+ultimoIndice+"].macReservado",
+			"id":"macReservado"+ultimoIndice
+		});
+		
+		divPanel.find("#ativo0").attr({
+			"name":"logins["+ultimoIndice+"].ativo",
+			"id":"ativo"+ultimoIndice
+		});
+		
+		$("div.logins").append(divPanel);
+		
+		$(".mac").mask("FF:FF:FF:FF:FF:FF",{
+			"translation":{F:{pattern:/[A-Fa-f0-9]/}}
+		});
+		
+		$(".ip").mask("099.099.099.099");
+		
+		$("div.apagaLogin").unbind();
+		
+		$("div.apagaLogin").click(function(){
+			apagarLogin($(this));
+		});
+		
+		$("div.toggleSenha").unbind();
+		
+		$("div.toggleSenha").click(function(){
+			toggleSenha(this);
+		});
+		
+	});
+	
 	
 	$("div.excluirTelefone").click(function(){
 		$(this).parent().fadeOut(300,function(){
@@ -59,6 +224,8 @@ $(document).ready(function() {
 		
 		$("[type='tel']").mask("(99) 99999-9999");
 		
+		$("div.excluirTelefone").unbind();
+		
 		$("div.excluirTelefone").click(function(){
 			$(this).parent().fadeOut(300,function(){
 				$(this).remove();
@@ -97,6 +264,8 @@ $(document).ready(function() {
 		
 		divEmail.append(div);
 		
+		$("div.excluirEmail").unbind();
+		
 		$("div.excluirEmail").click(function(){
 			$(this).parent().fadeOut(300,function(){
 				$(this).remove();
@@ -109,12 +278,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	
-	$("#cnpj").mask("99.999.999/9999-99");
-	$("[type='tel']").mask("(99) 99999-9999");
-	$(".cep").mask("99999-999");
-	$(".ip").mask("099.099.099.099");
-	$(".mac").mask("FF.FF.FF.FF.FF.FF.FF.FF",{
+	$(".mac").mask("FF:FF:FF:FF:FF:FF",{
 		"translation":{F:{pattern:/[A-Fa-f0-9]/}}
 	});
 	
@@ -189,7 +353,6 @@ function arrumaIndicesEmail(){
 	$("div.emails")
 					.find("div.form-group")
 					.each(function(index){
-							console.log(index);
 							$(this).find("label").attr("for",("email" + index));
 							$(this).find("[type='email']")
 									.attr({
@@ -213,15 +376,153 @@ function ultimoIndiceDisponivel(div){
 }
 
 function toggleSenha(div){
-	var senha = $(div).parent().parent()
-			.find("input");
+	var senha = $(div).parent().find("input");
+	var icone = $(div).find("div.icone");
 	
-	if($(div).hasClass("glyphicon-eye-close")){
+	if($(icone).hasClass("glyphicon-eye-close")){
 		$(senha).attr("type","password");
-	}else if($(div).hasClass("glyphicon-eye-open")){
+	}else if($(icone).hasClass("glyphicon-eye-open")){
 		$(senha).attr("type","text");
 	}
 	
-	$(div).toggleClass("glyphicon-eye-close")
-	.toggleClass("glyphicon-eye-open");
+	$(icone).toggleClass("glyphicon-eye-close")
+						.toggleClass("glyphicon-eye-open");
 }
+
+function ultimoIndiceDisponivelEndereco(div){
+	var indice = div
+					.find("div.panel")
+					.last()
+					.find("input")
+					.first()
+					.attr("id")
+					.replace("cep","");
+	return Number(indice) + 1;
+}
+
+function ultimoIndiceDisponivelEmail(div){
+	var indice = div
+					.find("div.panel")
+					.last()
+					.find("input")
+					.first()
+					.attr("id")
+					.replace("usuario","");
+return Number(indice) + 1;
+}
+
+function apagarEndereco(div){
+	div.parent().parent().parent().parent().fadeOut(300,function(){
+		$(this).remove();
+		arrumarIndiciesEndereco();
+	});
+}
+
+function apagarLogin(div){
+	div.parent().parent().parent().parent().fadeOut(300,function(){
+		$(this).remove();
+		arrumarIndiciesEmail();
+	});
+}
+
+function arrumarIndiciesEmail(){
+	$("div.enderecos").find("div.panel").each(function(indice){
+		$(this).find("[for^=usuario]").attr("for","usuario"+indice);
+		$(this).find("[for^=senha]").attr("for","senha"+indice);
+		$(this).find("[for^=numeroConexoes]").attr("for","numeroConexoes"+indice);
+		$(this).find("[for^=ipReservado]").attr("for","ipReservado"+indice);
+		$(this).find("[for^=macReservado]").attr("for","macReservado"+indice);
+		$(this).find("[for^=ativo]").attr("for","ativo"+indice);
+		
+		$(this).find("[id^=usuario]").attr({
+			"name":"logins["+indice+"].usuario",
+			"id":"usuario"+indice
+		});
+		
+		$(this).find("[id^=senha]").attr({
+			"name":"logins["+indice+"].senha",
+			"id":"senha"+indice
+		});
+		
+		$(this).find("[id^=numeroConexoes]").attr({
+			"name":"logins["+indice+"].numeroConexoes",
+			"id":"numeroConexoes"+indice
+		});
+		
+		$(this).find("[id^=ipReservado]").attr({
+			"name":"logins["+indice+"].ipReservado",
+			"id":"ipReservado"+indice
+		});
+		
+		$(this).find("[id^=macReservado]").attr({
+			"name":"logins["+indice+"].macReservado",
+			"id":"macReservado"+indice
+		});
+		
+		$(this).find("[id^=ativo]").attr({
+			"name":"logins["+indice+"].ativo",
+			"id":"ativo"+indice
+		});
+	});
+}
+
+function arrumarIndiciesEndereco(){
+	$("div.enderecos").find("div.panel").each(function(indice){
+		$(this).find("[for^=cep]").attr("for","cep"+indice);
+		$(this).find("[for^=logradouro]").attr("for","logradouro"+indice);
+		$(this).find("[for^=numero]").attr("for","numero"+indice);
+		$(this).find("[for^=complemento]").attr("for","complemento"+indice);
+		$(this).find("[for^=bairro]").attr("for","bairro"+indice);
+		$(this).find("[for^=referencia]").attr("for","referencia"+indice);		
+		$(this).find("[for^=cidade]").attr("for","cidade"+indice);
+		$(this).find("[for^=uf]").attr("for","uf"+indice);
+		$(this).find("[for^=descricao]").attr("for","descricao"+indice);
+		
+		$(this).find("[id^=cep]").attr({
+			"name":"enderecos["+indice+"].cep",
+			"id":"cep"+indice
+		});
+		
+		$(this).find("[id^=logradouro]").attr({
+			"name":"enderecos["+indice+"].logradouro",
+			"id":"logradouro"+indice
+		});
+		
+		$(this).find("[id^=numero]").attr({
+			"name":"enderecos["+indice+"].numero",
+			"id":"numero"+indice
+		});
+		
+		$(this).find("[id^=complemento]").attr({
+			"name":"enderecos["+indice+"].complemento",
+			"id":"complemento"+indice
+		});
+		
+		$(this).find("[id^=bairro]").attr({
+			"name":"enderecos["+indice+"].bairro",
+			"id":"bairro"+indice
+		});
+		
+		$(this).find("[id^=referencia]").attr({
+			"name":"enderecos["+indice+"].referencia",
+			"id":"referencia"+indice
+		});
+		
+		$(this).find("[id^=cidade]").attr({
+			"name":"enderecos["+indice+"].cidade",
+			"id":"cidade"+indice
+		});
+		
+		$(this).find("[id^=uf]").attr({
+			"name":"enderecos["+indice+"].uf",
+			"id":"uf"+indice
+		});
+		
+		$(this).find("[id^=descricao]").attr({
+			"name":"enderecos["+indice+"].descricao",
+			"id":"descricao"+indice
+		});
+		
+	});
+}
+

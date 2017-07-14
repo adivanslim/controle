@@ -84,6 +84,18 @@ public class Cliente extends Pessoa {
 		this.enderecos = enderecos;
 	}
 
+	public List<Login> getLogins() {
+		if (this.logins == null) {
+			this.logins = new ArrayList<Login>();
+			this.logins.add(new Login());
+		}
+		return logins;
+	}
+
+	public void setLogins(List<Login> logins) {
+		this.logins = logins;
+	}
+
 	public Cliente valida() {
 		if (this.getTipo() == TipoPessoa.FISICA) {
 			this.setCnpj(null);
