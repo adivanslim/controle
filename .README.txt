@@ -1,0 +1,5 @@
+to do
+
+@ separar com virgula os email e telefones.
+@ mudar na listagem do cliente nome fantasia para apelido.
+@ não apresentar descrição ou complemento quando inexistente no cadastro do cliente.
